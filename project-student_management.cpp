@@ -93,6 +93,8 @@ class Manager {
             string name;
             int id;
             string phoneNumber;
+            int attempts = 0;
+            int maxAttempts = 3;
             cout << "Student's name: " << endl;
             cin >> name;
             cout << "Student's id: " << endl;
@@ -100,8 +102,9 @@ class Manager {
             cout << "Student's phone number: " << endl;
             cin >> phoneNumber;
             Student newStudent = Student(name, id, phoneNumber);
-            while(newStudent.validatePhoneNumber() == false){
-                cout << "Invalid phone number, try again!";           
+            while(newStudent.validatePhoneNumber() == false && attempts<=maxAttempts){
+                attempts++;
+                cout << "Invalid phone number, try again!" << endl;           
                 cin >> phoneNumber;
                 newStudent.setPhoneNumber(phoneNumber);
             }
@@ -111,9 +114,9 @@ class Manager {
         void addCourse(){
             string name;
             int code;
-            cout << "Course's code: " << code << endl;
+            cout << "Course's code: " << endl;
             cin >> code;            
-            cout << "Course's name: " << name << endl;
+            cout << "Course's name: " << endl;
             cin >> name;
             Course newCourse = Course(code, name);
             courseList.push_back(newCourse);
@@ -124,7 +127,7 @@ class Manager {
             list<Student> tempList = studentList;
             while(tempList.empty() == false){
                 Student student = tempList.front();
-                cout << student.getStudentInfo();
+                cout << student.getStudentInfo() << endl;
                 tempList.pop_front();
             }
         }
@@ -139,9 +142,9 @@ class Manager {
             }
         }
 
-        void deleteCourse(int code){
+        void deleteCourse(int code){   
             bool found = false;
-            for (auto i=courseList.begin(); i != courseList.end(); ++i){
+            for (auto i=courseList.begin(); i != courseList.end(); i++){
                 if (i->getCode() == code){
                     found = true;
                     courseList.erase(i);
@@ -157,7 +160,7 @@ class Manager {
 
         void deleteStudent(int id){
             bool found = false;
-            for (auto i=studentList.begin(); i != studentList.end(); ++i){
+            for (auto i=studentList.begin(); i != studentList.end(); i++){
                 if (i->getID() == id){
                     found = true;
                     studentList.erase(i);
@@ -210,6 +213,9 @@ class Manager {
 int main() {
     Manager manager;
     int choice;
+    int studentId;
+    int code;
+    system("cls");
     do{
         cout << "Student management system using C++" << endl;
         cout << "===================================" << endl;
@@ -226,36 +232,41 @@ int main() {
         switch (choice)
         {
         case 1:
+            system("cls");
             manager.addStudent();
             break;
         case 2:
+            system("cls");
             manager.showAllStudent();
             break;
         case 3:
+            system("cls");
             manager.addCourse();
             break;
         case 4:
+            system("cls");
             manager.showAllCourse();
             break;
         case 5:
-            int id;
+            system("cls");
             cout << "Id of the student?" << endl;
-            cin >> id;
-            manager.editStudent(id);
+            cin >> studentId;
+            manager.editStudent(studentId);
             break;
         case 6:
-            int id;
+            system("cls");
             cout << "Id of the student?" << endl;
-            cin >> id;        
-            manager.deleteStudent(id);
+            cin >> studentId;        
+            manager.deleteStudent(studentId);
             break;
         case 7:
-            int code;
+            system("cls");
             cout << "Code of the course?" << endl;
-            cin >> code;        
+            cin >> code;     
             manager.deleteCourse(code);
             break;
         default:
+            system("cls");
             cout << "Invalid choice!" << endl;
             break;
         }
